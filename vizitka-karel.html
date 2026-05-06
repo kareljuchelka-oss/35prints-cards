@@ -17,41 +17,39 @@ html, body {
   background: #F4F4F4;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   overscroll-behavior: none;
+  overflow: hidden;
 }
 
 body {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  height: 100vh;
 }
 
-/* Karta má fixní rozměry jako originál (380×217px),
-   ale zobrazujeme ji rotovanou o 90° — takže vizuálně
-   zabere šířku ~217px a výšku ~380px ... ale to je moc malé.
-   Raději ji scale-upneme přes transform: rotate + scale. */
-
-.card-outer {
-  /* Originální rozměry karty */
-  width: 380px;
-  height: 217px;
-  transform: rotate(90deg) scale(0.88);
+/*
+  Po rotaci o 90°:
+  - vizuální šířka karty = 90vh (využijeme výšku obrazovky)
+  - vizuální výška karty = 90vh / 1.75
+  Ale protože je rotovaná, musíme nastavit:
+  - width = 90vh (tohle bude vizuální šířka)
+  - height = 90vh / 1.75 (tohle bude vizuální výška)
+*/
+.card {
+  position: relative;
+  width: 90vh;
+  height: calc(90vh / 1.75);
+  background: #F4F4F4;
+  border-radius: 2.5vh;
+  overflow: hidden;
+  box-shadow: 0 2px 40px rgba(26,26,26,0.13), 0 1px 4px rgba(26,26,26,0.07);
+  transform: rotate(90deg);
   transform-origin: center center;
   flex-shrink: 0;
 }
 
-.card {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background: #F4F4F4;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 2px 40px rgba(26,26,26,0.13), 0 1px 4px rgba(26,26,26,0.07);
-}
-
 .bg-blur { position: absolute; inset: 0; overflow: hidden; }
-.blur-shape { position: absolute; border-radius: 50%; filter: blur(42px); }
+.blur-shape { position: absolute; border-radius: 50%; filter: blur(6vh); }
 .blur-1 { width: 62%; height: 90%; background: #C65D3B; top: -22%; left: -16%; opacity: 0.75; }
 .blur-2 { width: 38%; height: 58%; background: #C65D3B; top: 30%; left: 6%; opacity: 0.42; }
 .blur-3 { width: 26%; height: 38%; background: #DA7A5C; top: -8%; left: 20%; opacity: 0.28; }
@@ -62,34 +60,34 @@ body {
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: end;
-  padding: 20px 22px;
-  gap: 16px;
+  padding: 4.5vh 5.5vh;
+  gap: 3vh;
 }
 
 .info { display: flex; flex-direction: column; }
 
 .name {
-  font-size: 21px;
+  font-size: 5.5vh;
   font-weight: 700;
   color: #1A1A1A;
   line-height: 1.08;
-  letter-spacing: -0.4px;
+  letter-spacing: -0.02em;
   white-space: nowrap;
 }
 
 .role {
-  font-size: 11px;
+  font-size: 2.5vh;
   font-weight: 400;
   color: #1A1A1A;
   opacity: 0.6;
-  margin-top: 4px;
+  margin-top: 1vh;
   white-space: nowrap;
 }
 
-.contacts { display: flex; flex-direction: column; gap: 1px; margin-top: 10px; }
+.contacts { display: flex; flex-direction: column; gap: 0.3vh; margin-top: 2vh; }
 
 .contact-line {
-  font-size: 11px;
+  font-size: 2.5vh;
   font-weight: 400;
   color: #1A1A1A;
   text-decoration: none;
@@ -97,14 +95,14 @@ body {
   display: block;
 }
 
-.qr-wrap { display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-end; gap: 5px; }
+.qr-wrap { display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-end; gap: 1.2vh; }
 
 .qr-box {
   background: #fff;
-  border-radius: 5px;
-  padding: 5px;
-  width: 110px;
-  height: 110px;
+  border-radius: 0.8vh;
+  padding: 1vh;
+  width: 24vh;
+  height: 24vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -113,44 +111,38 @@ body {
 .qr-box svg { width: 100%; height: 100%; display: block; }
 
 .logo-mark {
-  font-size: 10px;
+  font-size: 1.8vh;
   font-weight: 700;
   color: #1A1A1A;
-  letter-spacing: 1.5px;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   opacity: 0.4;
   text-align: right;
-}
-
-.brand-footer {
-  /* skryjeme footer — v landscape módu není prostor */
-  display: none;
 }
 </style>
 </head>
 <body>
 
-<div class="card-outer">
-  <div class="card">
-    <div class="bg-blur">
-      <div class="blur-shape blur-1"></div>
-      <div class="blur-shape blur-2"></div>
-      <div class="blur-shape blur-3"></div>
-    </div>
-    <div class="card-content">
-      <div class="info">
-        <div class="name">Karel Juchelka</div>
-        <div class="role">co-owner, creative director</div>
-        <div class="contacts">
-          <a class="contact-line" href="tel:+420605519912">+420 605 519 912</a>
-          <a class="contact-line" href="mailto:juchelka@thirty-five.cz">juchelka@thirty-five.cz</a>
-        </div>
+<div class="card">
+  <div class="bg-blur">
+    <div class="blur-shape blur-1"></div>
+    <div class="blur-shape blur-2"></div>
+    <div class="blur-shape blur-3"></div>
+  </div>
+  <div class="card-content">
+    <div class="info">
+      <div class="name">Karel Juchelka</div>
+      <div class="role">co-owner, creative director</div>
+      <div class="contacts">
+        <a class="contact-line" href="tel:+420605519912">+420 605 519 912</a>
+        <a class="contact-line" href="mailto:juchelka@thirty-five.cz">juchelka@thirty-five.cz</a>
       </div>
-      <div class="qr-wrap">
-        <div class="qr-box">
-          <svg viewBox="0 0 61 61" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
-            <rect width="61" height="61" fill="white"/>
-            <g fill="#1A1A1A">
+    </div>
+    <div class="qr-wrap">
+      <div class="qr-box">
+        <svg viewBox="0 0 61 61" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <rect width="61" height="61" fill="white"/>
+          <g fill="#1A1A1A">
 <rect x="0" y="0" width="1" height="1"/>
 <rect x="1" y="0" width="1" height="1"/>
 <rect x="2" y="0" width="1" height="1"/>
@@ -2025,11 +2017,10 @@ body {
 <rect x="57" y="60" width="1" height="1"/>
 <rect x="59" y="60" width="1" height="1"/>
 <rect x="60" y="60" width="1" height="1"/>
-            </g>
-          </svg>
-        </div>
-        <div class="logo-mark">thirty-five</div>
+          </g>
+        </svg>
       </div>
+      <div class="logo-mark">thirty-five</div>
     </div>
   </div>
 </div>
