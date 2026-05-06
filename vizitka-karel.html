@@ -10,32 +10,52 @@
 <title>Karel Juchelka — thirty-five</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+html, body {
+  width: 100%;
+  height: 100%;
   background: #F4F4F4;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   overscroll-behavior: none;
 }
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* Karta má fixní rozměry jako originál (380×217px),
+   ale zobrazujeme ji rotovanou o 90° — takže vizuálně
+   zabere šířku ~217px a výšku ~380px ... ale to je moc malé.
+   Raději ji scale-upneme přes transform: rotate + scale. */
+
+.card-outer {
+  /* Originální rozměry karty */
+  width: 380px;
+  height: 217px;
+  transform: rotate(90deg) scale(0.88);
+  transform-origin: center center;
+  flex-shrink: 0;
+}
+
 .card {
   position: relative;
   width: 100%;
-  max-width: 380px;
-  aspect-ratio: 1.75 / 1;
+  height: 100%;
   background: #F4F4F4;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 2px 40px rgba(26,26,26,0.13), 0 1px 4px rgba(26,26,26,0.07);
 }
+
 .bg-blur { position: absolute; inset: 0; overflow: hidden; }
 .blur-shape { position: absolute; border-radius: 50%; filter: blur(42px); }
 .blur-1 { width: 62%; height: 90%; background: #C65D3B; top: -22%; left: -16%; opacity: 0.75; }
 .blur-2 { width: 38%; height: 58%; background: #C65D3B; top: 30%; left: 6%; opacity: 0.42; }
 .blur-3 { width: 26%; height: 38%; background: #DA7A5C; top: -8%; left: 20%; opacity: 0.28; }
+
 .card-content {
   position: absolute;
   inset: 0;
@@ -45,7 +65,9 @@ body {
   padding: 20px 22px;
   gap: 16px;
 }
+
 .info { display: flex; flex-direction: column; }
+
 .name {
   font-size: 21px;
   font-weight: 700;
@@ -54,6 +76,7 @@ body {
   letter-spacing: -0.4px;
   white-space: nowrap;
 }
+
 .role {
   font-size: 11px;
   font-weight: 400;
@@ -62,7 +85,9 @@ body {
   margin-top: 4px;
   white-space: nowrap;
 }
+
 .contacts { display: flex; flex-direction: column; gap: 1px; margin-top: 10px; }
+
 .contact-line {
   font-size: 11px;
   font-weight: 400;
@@ -71,7 +96,9 @@ body {
   opacity: 0.82;
   display: block;
 }
+
 .qr-wrap { display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-end; gap: 5px; }
+
 .qr-box {
   background: #fff;
   border-radius: 5px;
@@ -82,7 +109,9 @@ body {
   align-items: center;
   justify-content: center;
 }
+
 .qr-box svg { width: 100%; height: 100%; display: block; }
+
 .logo-mark {
   font-size: 10px;
   font-weight: 700;
@@ -92,39 +121,36 @@ body {
   opacity: 0.4;
   text-align: right;
 }
+
 .brand-footer {
-  margin-top: 28px;
-  font-size: 10px;
-  letter-spacing: 1.4px;
-  text-transform: uppercase;
-  color: #1A1A1A;
-  opacity: 0.2;
-  font-weight: 600;
+  /* skryjeme footer — v landscape módu není prostor */
+  display: none;
 }
 </style>
 </head>
 <body>
 
-<div class="card">
-  <div class="bg-blur">
-    <div class="blur-shape blur-1"></div>
-    <div class="blur-shape blur-2"></div>
-    <div class="blur-shape blur-3"></div>
-  </div>
-  <div class="card-content">
-    <div class="info">
-      <div class="name">Karel Juchelka</div>
-      <div class="role">co-owner, creative director</div>
-      <div class="contacts">
-        <a class="contact-line" href="tel:+420605519912">+420 605 519 912</a>
-        <a class="contact-line" href="mailto:juchelka@thirty-five.cz">juchelka@thirty-five.cz</a>
-      </div>
+<div class="card-outer">
+  <div class="card">
+    <div class="bg-blur">
+      <div class="blur-shape blur-1"></div>
+      <div class="blur-shape blur-2"></div>
+      <div class="blur-shape blur-3"></div>
     </div>
-    <div class="qr-wrap">
-      <div class="qr-box">
-        <svg viewBox="0 0 61 61" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
-          <rect width="61" height="61" fill="white"/>
-          <g fill="#1A1A1A">
+    <div class="card-content">
+      <div class="info">
+        <div class="name">Karel Juchelka</div>
+        <div class="role">co-owner, creative director</div>
+        <div class="contacts">
+          <a class="contact-line" href="tel:+420605519912">+420 605 519 912</a>
+          <a class="contact-line" href="mailto:juchelka@thirty-five.cz">juchelka@thirty-five.cz</a>
+        </div>
+      </div>
+      <div class="qr-wrap">
+        <div class="qr-box">
+          <svg viewBox="0 0 61 61" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+            <rect width="61" height="61" fill="white"/>
+            <g fill="#1A1A1A">
 <rect x="0" y="0" width="1" height="1"/>
 <rect x="1" y="0" width="1" height="1"/>
 <rect x="2" y="0" width="1" height="1"/>
@@ -1999,15 +2025,14 @@ body {
 <rect x="57" y="60" width="1" height="1"/>
 <rect x="59" y="60" width="1" height="1"/>
 <rect x="60" y="60" width="1" height="1"/>
-          </g>
-        </svg>
+            </g>
+          </svg>
+        </div>
+        <div class="logo-mark">thirty-five</div>
       </div>
-      <div class="logo-mark">thirty-five</div>
     </div>
   </div>
 </div>
-
-<div class="brand-footer">thirty-five</div>
 
 </body>
 </html>
